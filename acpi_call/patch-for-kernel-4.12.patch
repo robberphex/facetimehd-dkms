@@ -1,0 +1,21 @@
+https://github.com/mkottman/acpi_call/issues/69
+diff --git a/acpi_call.c b/acpi_call.c
+index 3025d97..a16958c 100644
+--- a/acpi_call-ac67445bc75ec4fcf46ceb195fb84d74ad350d51/acpi_call.c
++++ b/acpi_call-ac67445bc75ec4fcf46ceb195fb84d74ad350d51/acpi_call.c
+@@ -5,8 +5,13 @@
+ #include <linux/version.h>
+ #include <linux/proc_fs.h>
+ #include <linux/slab.h>
+-#include <asm/uaccess.h>
+-#include <acpi/acpi.h>
++#include <linux/version.h>
++#if LINUX_VERSION_CODE < KERNEL_VERSION(4,12,0)
++#include <asm/uaccess.h>             /* copy_*_user */
++#else
++#include <linux/uaccess.h>           /* copy_*_user */
++#endif
++#include <linux/acpi.h>
+ 
+ MODULE_LICENSE("GPL");
+ 
